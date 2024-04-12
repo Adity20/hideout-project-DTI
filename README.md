@@ -11,7 +11,7 @@ This repository contains the codebase for the Location Preservation project, an 
 
 To run the frontend client:
 
-1. Navigate to the `frontend-client` folder: `cd frontend-client`
+1. Navigate to the `frontend-client` folder: `cd client`
 2. Install dependencies: `npm install`
 3. Start the development server: `npm run dev`
 
