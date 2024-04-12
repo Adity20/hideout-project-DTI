@@ -40,6 +40,4 @@ We welcome contributions from the community to improve and expand the Location P
 
 This project is licensed under the [MIT License](LICENSE), which means you are free to use, modify, and distribute the code for both commercial and non-commercial purposes. 
 
-For more details about the project or inquiries, please contact [project team email/contact].
-
 Thank you for your interest and support in preserving our cultural heritage!
