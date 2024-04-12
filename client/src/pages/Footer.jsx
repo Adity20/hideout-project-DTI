@@ -29,7 +29,10 @@ const Footer = () => {
                   <h2 className="mb-6 text-sm font-semibold text-dark uppercase dark:text-white">Follow us</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       <li className="mb-4">
-                          <p  className="hover:underline "><Link to={"https://github.com"}>Github</Link></p>
+                          <p  className="hover:underline "><Link to={"https://github.com/Adity20/hideout-project-DTI"}>Github</Link></p>
+                      </li>
+                      <li className="mb-4">
+                          <p  className="hover:underline "><Link to={'/contact'}>Contact us</Link></p>
                       </li>
                       {/* <li>
                           <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Discord</a>

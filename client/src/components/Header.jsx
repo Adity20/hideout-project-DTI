@@ -74,7 +74,7 @@ export default function Header() {
     // </header>
     <>
     <nav >
-    <div className="  bg-white px-8 py-1 shadow-lg ring-1 ring-gray-200">
+    <div className="bg-white px-8 py-1 shadow-lg ring-1 ring-gray-200">
       <div className="flex items-center justify-between">
         <a className="flex items-center" href="/">
           <img src="https://i.ibb.co/jGMgp7r/seamless-ui.png" className="w-16" alt="Header Logo" />

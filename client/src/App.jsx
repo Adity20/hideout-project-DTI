@@ -13,6 +13,7 @@ import Search from './pages/Search';
 import Places from './pages/Places';
 import Shared from './pages/Shared';
 import Share from './pages/Share';
+import Contact from './pages/Contact';
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <Route path='/places' element={<Places />} />
         <Route path='/shared' element={<Shared />} />
         <Route path='/share' element={<Share />} />
+        <Route path='/contact' element={<Contact />} />
 
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
