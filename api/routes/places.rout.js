@@ -321,5 +321,66 @@ router.get('/georec', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching georecommendations' });
     }
 });
+router.get('/type-rec/random', async (req, res) => {
+    try {
+        const specificUserId = req.query.userId;
+
+        // Fetch visited places for the specific user
+        const visitedPlaces = await visited_places.find({ user_obj_id: specificUserId });
+        if (visitedPlaces.length === 0) {
+            return res.status(404).json({ error: 'User has not visited any places yet' });
+        }
+
+        const visitedPlaceIds = visitedPlaces.map(place => place.places_obj_id);
+
+        // Get a random visited place of the user
+        const randomVisitedPlace = visitedPlaces[Math.floor(Math.random() * visitedPlaces.length)];
+        const place = await place_model.findOne({ _id: randomVisitedPlace.places_obj_id });
+        if (!place) {
+            return res.status(404).json({ error: 'Place not found' });
+        }
+
+        // Ensure the place object has a type property
+        if (!place.type) {
+            return res.status(400).json({ error: 'Type field is missing in the place document' });
+        }
+
+        // Fetch recommendations based on the randomly selected type, excluding visited places
+        const recommendations = await place_model.aggregate([
+            {
+                $match: {
+                    type: place.type, // Filter by the randomly selected type
+                    _id: { $nin: visitedPlaceIds } // Exclude visited places
+                }
+            },
+            {
+                $lookup: {
+                    from: 'file_storages',
+                    localField: 'fileid',
+                    foreignField: '_id',
+                    as: 'file'
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    user_obj_id: 1,
+                    place_name: 1,
+                    fileid: 1,
+                    story: 1,
+                    likes: 1,
+                    type: 1,
+                    filepath: { $arrayElemAt: ['$file.filepath', 0] }
+                }
+            }
+        ]);
+
+        res.status(200).json({ type: place.type, recommendations });
+    } catch (error) {
+        console.error('Error fetching recommendations based on type:', error);
+        res.status(500).json({ error: 'An error occurred while fetching recommendations based on type' });
+    }
+});
+
 export default router;
 
