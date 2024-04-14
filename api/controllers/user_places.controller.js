@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import filemodel from '../models/file_storage.model.js';
 import placemodel from '../models/place.model.js';
 import visited_places from '../models/visited_places.model.js';
+import coordinatemodel from '../models/places_coordinates.model.js';
 export const upload_place = async (req, res) => {
     try {
         const name = req.file.filename;
@@ -27,8 +28,17 @@ export const upload_place = async (req, res) => {
             user_obj_id:specificObjectId,
             places_obj_id:newPlace._id,
         });
+         console.log(visitPlace);
         const { lat, lng } = JSON.parse(req.body.coordinates);
-        console.log(lat,lng);
+        console.log(lat,lng)
+        const newcoord=await coordinatemodel.create({
+            places_obj_id: newPlace._id,
+        location: {
+        type: 'Point',
+        coordinates: [lat, lng]
+    }
+        })
+        console.log(newcoord)
         // Sending response back
         res.status(201).json({ message: 'Place and image uploaded successfully', place: newPlace, file: newFile });
     } catch (err) {
