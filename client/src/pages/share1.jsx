@@ -104,7 +104,7 @@ const FormComponent = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log('Response:', response.data);
+      alert(response.data.msg);
       // Handle success, show message or redirect
     } catch (error) {
       console.error('Error:', error);

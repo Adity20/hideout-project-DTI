@@ -5,7 +5,16 @@ mongoose.connect('mongodb://localhost:27017/hideout',{
     useUnifiedTopology: true,
 });
 
-const places_coordinates = new mongoose.Schema({
+
+const placesCoordinatesSchema = new mongoose.Schema({
+    user_obj_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    fileid: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     location: {
         type: {
             type: String,
@@ -16,18 +25,12 @@ const places_coordinates = new mongoose.Schema({
             type: [Number], // Array of numbers: [longitude, latitude]
             required: true
         }
-    },
-    places_obj_id:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'places',
-        required:true,
     }
-
 });
 
 // Ensure an index on the location field for efficient geospatial queries
-places_coordinates.index({ location: '2dsphere' });
+placesCoordinatesSchema.index({ location: '2dsphere' });
 
-const coordinatemodel = mongoose.model('places_coordinates', places_coordinates);
+const coordinatemodel = mongoose.model('places_coordinates', placesCoordinatesSchema);
 
 export default coordinatemodel
