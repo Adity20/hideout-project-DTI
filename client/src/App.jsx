@@ -5,6 +5,7 @@ import SignUp from './pages/SignUp';
 import About from './pages/About';
 import Profile from './pages/Profile';
 import Header from './components/Header';
+import Upload from './pages/uploaded.jsx'
 import PrivateRoute from './components/PrivateRoute';
 import CreateListing from './pages/CreateListing';
 import UpdateListing from './pages/UpdateListing';
@@ -12,7 +13,7 @@ import Listing from './pages/Listing';
 import Search from './pages/Search';
 import Places from './pages/Places';
 import Shared from './pages/Shared';
-import Share from './pages/Share';
+import Share from './pages/share1.jsx';
 import Contact from './pages/Contact';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/about' element={<About />} />
+        <Route path='/upload_place' element={<Upload/>} />
         <Route path='/search' element={<Search />} />
         <Route path='/listing/:listingId' element={<Listing />} />
         <Route path='/places' element={<Places />} />
