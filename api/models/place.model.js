@@ -8,6 +8,7 @@ const place=mongoose.model('places',{
     place_name: String,
     fileid: mongoose.Schema.Types.ObjectId,
     coordid:mongoose.Schema.Types.ObjectId,
+    
     story: String,
     likes: Number,
     type: String,
