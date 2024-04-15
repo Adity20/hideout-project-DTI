@@ -157,7 +157,7 @@ export default function Home() {
                 </h1>
 
                 <div className=''>
-                <Link to={"/places"}><button class="flex text-sm rounded-full items-center border-2 border-primary px-4 py-1 font-medium text-primary transition-all hover:bg-primary hover:text-white disabled:bg-gray-300 ">
+                <Link to={"/places"}><button className="flex text-sm rounded-full items-center border-2 border-primary px-6 py-3 font-medium text-primary transition-all hover:bg-primary hover:text-white disabled:bg-gray-300 ">
                     <span>More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -167,10 +167,8 @@ export default function Home() {
 
             <div className='grid  lg:grid-cols-3 gap-10 pt-10'>
             {topRatedPlaces.map((item) => (
-            <div
-                key={item._id}
-                className='border shadow-lg rounded-lg hover:scale-105 duration-300'
-            >
+               <Link to={`/destination/${item._id}`}>
+            <div key={item._id} className='border shadow-lg rounded-lg hover:scale-105 duration-300'>
                 <img
                 src={item.filepath}
                 alt={item.place_name}
@@ -188,6 +186,7 @@ export default function Home() {
                 <p className='font'>{item.story}</p>
                 </div>
             </div>
+          </Link>
             ))}
         </div>
     </div>
@@ -212,6 +211,7 @@ export default function Home() {
 
             <div className='grid  lg:grid-cols-3 gap-10 pt-10'>
                 {topRatedPlaces.map((item) => (
+                  <Link to={`/destination/${item._id}`}>
                 <div
                     key={item._id}
                     className='border shadow-lg rounded-lg hover:scale-105 duration-300'
@@ -233,6 +233,7 @@ export default function Home() {
                     <p className='font'>{item.story}</p>
                     </div>
                 </div>
+                       </Link>
                 ))}
             </div>
         </div>

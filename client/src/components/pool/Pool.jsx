@@ -1,6 +1,6 @@
 import React,{ useState } from 'react'
 import { Link } from 'react-router-dom';
-import { data } from '/Users/nikhilyadav/hideout-project-DTI/client/src/data/pooldata.js'; 
+import { data } from '/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/client/src/data/pooldata'; 
 
 const Pool = () => {
 

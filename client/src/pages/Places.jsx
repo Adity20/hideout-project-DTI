@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { data } from '../data/data.js';
 
 const Places = () => {
@@ -42,25 +43,25 @@ const Places = () => {
               All
             </button>
             <button
-              onClick={() => filterType('burger')}
+                onClick={() => filterType('Nature')}
               className='m-1 border-primary text-primary hover:bg-primary hover:text-white'
             >
               Nature
             </button>
             <button
-              onClick={() => filterType('pizza')}
+               onClick={() => filterType('Beaches')}
               className='m-1 border-primary text-primary hover:bg-primary hover:text-white'
             >
               Beaches
             </button>
             <button
-              onClick={() => filterType('salad')}
+              onClick={() => filterType('Tempels')}
               className='m-1 border-primary text-primary hover:bg-primary hover:text-white'
             >
               Temples
             </button>
             <button
-              onClick={() => filterType('chicken')}
+              onClick={() => filterType('Cities')}
               className='m-1 border-primary text-primary hover:bg-primary hover:text-white'
             >
               Cities
@@ -103,6 +104,7 @@ const Places = () => {
       {/* Display Place */}
       <div className='grid  lg:grid-cols-3 gap-10 pt-10'>
         {place.map((item, index) => (
+           <Link to={`/destination/${item.id}`}>
           <div
             key={index}
             className='border shadow-lg rounded-lg hover:scale-105 duration-300'
@@ -124,6 +126,8 @@ const Places = () => {
               <p className='font'>{item.description}</p>
             </div>
           </div>
+          </Link>
+
         ))}
       </div>
     </div>

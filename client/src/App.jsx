@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { BrowserRouter, Routes, Route , useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -15,6 +16,11 @@ import Places from './pages/Places';
 import Shared from './pages/Shared';
 import Share from './pages/share1.jsx';
 import Contact from './pages/Contact';
+import DestinationDetails from './pages/DestinationDetails';
+import Pool from './components/pool/Pool';
+import Ride from './components/pool/Ride';
+import CreateRide from './components/pool/CreateRide';
+import Footer from './pages/Footer';
 
 export default function App() {
   return (
@@ -31,7 +37,12 @@ export default function App() {
         <Route path='/places' element={<Places />} />
         <Route path='/shared' element={<Shared />} />
         <Route path='/share' element={<Share />} />
+        <Route path='/pool' element={<Pool />} />
+        <Route path='/createride' element={<CreateRide />} />
         <Route path='/contact' element={<Contact />} />
+        <Route exact path="/destination/:id" element={<DestinationDetails />} /> 
+        <Route exact path="/shared/:id" element={<DestinationDetails />} /> 
+        <Route exact path="/ride/:id" element={<Ride />} /> 
 
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
@@ -42,6 +53,9 @@ export default function App() {
           />
         </Route>
       </Routes>
+      {/* {!isSignUpOrSignInPage && <Footer />}  */}
     </BrowserRouter>
+
   );
+
 }
