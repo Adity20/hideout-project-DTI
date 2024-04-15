@@ -27,7 +27,7 @@ const DestinationDetails = () => {
   useEffect(() => {
     if (!mapLoaded && userRecommendations) {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=api&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDRt-VDa48N-6NW2_OKHWdiWJGw0g3J9Fg&libraries=places`;
       script.onload = () => {
         setMapLoaded(true);
       };
@@ -75,23 +75,28 @@ const DestinationDetails = () => {
   };
   
   return (
-    <div className='flex max-w-[1640px] m-auto px-2 py-6'>
-      <img className="h-1/2 w-1/2 rounded-lg object-cover object-center" src={userRecommendations.filepath} alt={userRecommendations.place_name} />
+    <div className=' max-w-[1640px] m-auto px-2 py-6'>
+      <img className="h-96 w-full rounded-lg object-cover object-center" src={userRecommendations.filepath} alt={userRecommendations.place_name} />
       <div className='px-2 py-6'>
         <div className='px-1 py-3'>
           <div className='px-1 py-1'>
             <h1 className="text-2xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">{userRecommendations.place_name}</span>
+              <span className="text-transparent bg-clip-text bg-primary to-emerald-600 from-sky-400">{userRecommendations.place_name}</span>
             </h1>
           </div>
           <div className='px-1 py-1'></div>
         </div>
-        <p className="max-w-lg text-2xl leading-normal text-gray-900 dark:text-grey-900">{userRecommendations.type}</p>
-        <p className="max-w-lg text-2xl leading-normal text-gray-900 dark:text-grey-900">uploaded by: {userRecommendations.username}</p>
-        <p className="max-w-lg text-2xl leading-normal text-gray-900 dark:text-grey-900">likes: {userRecommendations.likes}</p>
+        <div className='flex flex-row justify-between '>
+          <div>
+        <p className="max-w-lg text-2xl font-bold leading-normal text-gray-900 dark:text-grey-900">Type: {userRecommendations.type}</p>
+        <p className="max-w-lg text-2xl leading-normal text-gray-900 dark:text-grey-900"><span className='max-w-lg text-2xl font-bold leading-normal text-gray-900 dark:text-grey-900'>Uploaded by: </span> {userRecommendations.username}</p>
+        <p className="max-w-lg text-2xl leading-normal text-gray-900 dark:text-grey-900"><span className='max-w-lg text-2xl font-bold leading-normal text-gray-900 dark:text-grey-900'>Likes: </span>{userRecommendations.likes}</p>
+        <span className='max-w-lg text-2xl font-bold leading-normal text-gray-900 dark:text-grey-900'>Story:</span>
         <p className="max-w-lg text-2xl leading-normal text-gray-900 dark:text-grey-900">{userRecommendations.story}</p>
         <br />
-        <div id="map" style={{ width: '200%', height: '400px' }}></div>
+        </div>
+        <div className='h-1/2 w-94' id="map" style={{ width: '40%', height: '400px' }}></div>
+        </div>
         <br />
         <button
           type="button"

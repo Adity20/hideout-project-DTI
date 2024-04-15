@@ -6,7 +6,7 @@ import file_storages from '../models/file_storage.model.js'
 import place_model from '../models/place.model.js'
 import places_coordinates from'../models/places_coordinates.model.js'
 import visited_places from "../models/visited_places.model.js";
-
+import contactModel from "../models/contact.model.js";
 
 const router=express.Router();
 
@@ -381,6 +381,25 @@ router.get('/type-rec/random', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching recommendations based on type' });
     }
 });
-
+router.post('/contact', async (req, res) => {
+    try {
+      const { email, subject, message } = req.body;
+  
+      // Create a new contact document
+      const newContact = new contactModel({
+        email,
+        subject,
+        message
+      });
+  
+      // Save the contact document to the database
+      await newContact.save();
+  
+      res.status(201).json({ message: 'Message sent successfully' });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      res.status(500).json({ error: 'An unexpected error occurred' });
+    }
+  });
 export default router;
 

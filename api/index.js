@@ -39,7 +39,8 @@ app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
 app.use('/api/places',placeRouter);
 
-app.use('/images',express.static("C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads"));
+
+ect-DTI/api/uploads"));
 
 
 const storage = multer.diskStorage({
