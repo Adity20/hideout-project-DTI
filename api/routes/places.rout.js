@@ -51,7 +51,7 @@ router.get('/top-rated',async(req,res)=>{
 // string password="password123;
 router.get('/user-rec/:id/:name', async (req, res) => {
     try {
-        const cppExecutable = path.join('C:/Users/shubh kamra/source/repos/CMakeProject4/out/build/x64-debug/CMakeProject.exe');
+        const cppExecutable = path.join('C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/x64-debug/CMakeProject.exe');
         const child = spawn(cppExecutable);
         let processData = '';
 

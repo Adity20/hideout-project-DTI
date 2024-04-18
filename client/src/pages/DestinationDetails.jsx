@@ -27,7 +27,7 @@ const DestinationDetails = () => {
   useEffect(() => {
     if (!mapLoaded && userRecommendations) {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDRt-VDa48N-6NW2_OKHWdiWJGw0g3J9Fg&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=&libraries=places`;
       script.onload = () => {
         setMapLoaded(true);
       };

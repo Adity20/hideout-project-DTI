@@ -1,139 +1,171 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { get } from 'mongoose';
+import { useSelector } from 'react-redux';
 
 const CreateRide = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { currentUser } = useSelector((state) => state.user);
+  const [formData, setFormData] = useState({
+    StartDate: '',
+    EndDate: '',
+    Origin: '',
+    Destination: '',
+    Budget: '',
+    Description: '',
+    MaxCapacity: ''// Initialize as empty string
+  });
 
-    const [formData, setFormData] = useState({
-        // location: '',
-        description: '',
-        photos: [],
-        music: null,
-      });
-      const [imageUploadError, setImageUploadError] = useState(false);
-      const [photos, setPhotos] = useState([]);
-      const [music, setMusic] = useState(null);
-      const [files, setFiles] = useState('Choose File');
-      console.log(files);
-      console.log(formData);
-    
-      const handleImageSubmit = (e) => {
-        if (files.length>0 && files.length<6){
-          const promises = [];
-          for (let i = 0; i < files.length; i++) {
-            promises.push(storeImage(files[i]));
-          }
-          Promise.all(promises).then((urls) => {
-            setFormData({...formData, photos : formData.photos.concat(urls)});
-            setImageUploadError(false);
-          }).catch((error) => {
-            // console.log(error);
-            setImageUploadError('Error uploading images');
-        } );
-      }
-      else{
-        setImageUploadError('Please upload between 1 and 5 images');
-      }
-    
-      }
-    
-      const storeImage = async (file) => {
-        return new Promise((resolve, reject) => {
-          const storage = getStorage(app)
-          const fileName = new Date().getTime() + file.name;
-          const storageRef = ref(storage, fileName);
-          const uploadTask = uploadBytesResumable(storageRef, file);
-          uploadTask.on('state_changed',
-          (snapshot) => {
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-          },
-          (error)=>{
-            console.log(error);
-            reject(error);
-          },
-          ()=>{
-            console.log('success');
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              console.log('File available at', downloadURL);
-              resolve(downloadURL);
-            } );
-          }
-          );
-      } );
-      } 
+  // Update user_obj_id when currentUser changes
+  useEffect(() => {
+    if (currentUser) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        user_obj_id: currentUser._id
+      }));
+    }
+  }, [currentUser]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const response = await axios.post('http://localhost:3000/api/addtrip', formData);
+      alert(response.data.msg);
+      // Handle success, show message or redirect
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Error submitting form. Please try again.'); // Update error state
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
-    <div className="max-w mx-auto mt-8 p-32 bg-white rounded-lg shadow-md">
-    <form className="space-y-6">
-    <div>
-        <label htmlFor="start" className="block text-sm font-medium text-gray-700">
-        Start
-        </label>
-        <input
-          id="start"
-          name="start"
-          type="text"
-          // value={location}
-          // onChange={handleLocationChange}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="Where To"
-        />
-      </div>
-      <div>
-        <label htmlFor="end" className="block text-sm font-medium text-gray-700">
-        End
-        </label>
-        <input
-          id="end"
-          name="end"
-          type="text"
-          // value={location}
-          // onChange={handleLocationChange}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="Where From"
-        />
-      </div>
-      <div>
-        <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-          Location
-        </label>
-        <input
-          id="location"
-          name="location"
-          type="text"
-          // value={location}
-          // onChange={handleLocationChange}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="Enter location"
-        />
-      </div>
-      <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          // value={description}
-          // onChange={handleDescriptionChange}
-          rows="3"
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          placeholder="Enter description"
-        />
-      </div>
-      <div className="flex justify-end">
-        <button
-          type="submit"
-          className="inline-flex justify-center py-4 px-8 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-  </div>
-  )
-}
+    <div className="max-w mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="StartDate" className="block text-sm font-medium text-gray-700">
+            Start Date
+          </label>
+          <input
+            id="StartDate"
+            name="StartDate"
+            type="date"
+            value={formData.StartDate}
+            onChange={handleChange}
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="EndDate" className="block text-sm font-medium text-gray-700">
+            End Date
+          </label>
+          <input
+            id="EndDate"
+            name="EndDate"
+            type="date"
+            value={formData.EndDate}
+            onChange={handleChange}
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="Origin" className="block text-sm font-medium text-gray-700">
+            Origin
+          </label>
+          <input
+            id="Origin"
+            name="Origin"
+            type="text"
+            value={formData.Origin}
+            onChange={handleChange}
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Origin"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="Destination" className="block text-sm font-medium text-gray-700">
+            Destination
+          </label>
+          <input
+            id="Destination"
+            name="Destination"
+            type="text"
+            value={formData.Destination}
+            onChange={handleChange}
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Destination"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="Budget" className="block text-sm font-medium text-gray-700">
+            Budget
+          </label>
+          <input
+            id="Budget"
+            name="Budget"
+            type="number"
+            value={formData.Budget}
+            onChange={handleChange}
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Budget"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="Description" className="block text-sm font-medium text-gray-700">
+            Description
+          </label>
+          <textarea
+            id="Description"
+            name="Description"
+            value={formData.Description}
+            onChange={handleChange}
+            rows="3"
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Description"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="MaxCapacity" className="block text-sm font-medium text-gray-700">
+            Max Capacity
+          </label>
+          <input
+            id="MaxCapacity"
+            name="MaxCapacity"
+            type="number"
+            value={formData.MaxCapacity}
+            onChange={handleChange}
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Max Capacity"
+            required
+          />
+        </div>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={loading}
+          >
+            {loading ? 'Submitting...' : 'Submit'}
+          </button>
+        </div>
+        {error && <p className="text-red-500">{error}</p>}
+      </form>
+    </div>
+  );
+};
 
-export default CreateRide
+export default CreateRide;
+
