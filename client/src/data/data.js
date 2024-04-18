@@ -150,25 +150,25 @@ export const data = [
       id: 1,
       name: 'Personalised Content',
       image:
-        'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/FastFood_BrowseHome@3x.png',
+        'https://img.freepik.com/free-vector/hand-holding-smartphone-mobile-phone-concept-hand-drawn-cartoon-art-illustration_56104-1117.jpg?t=st=1713161687~exp=1713165287~hmac=07f59023cf6fe4b4cca946c1a27a6d7aab7ba1eea68ad6a4b967796e37d02c32&w=2000',
     },
     {
       id: 2,
       name: 'Explore & Share',
       image:
-        'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Beaches_BrowseHome@3x.png',
+        'https://img.freepik.com/free-vector/local-tourism-concept_23-2148606915.jpg?t=st=1713161764~exp=1713165364~hmac=2a4a07ac9617a96ce1f51bafeb82823703b167a3a61e13efd9d9e4f97cf0f306&w=1480',
     },
     {
       id: 3,
-      name: 'Wings',
+      name: 'Trip Pooling',
       image:
-        'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Wings_BrowseHome@3x.png',
+        'https://img.freepik.com/premium-vector/beach-friends-cartoons_18591-53187.jpg?w=1480',
     },
     {
       id: 4,
-      name: 'Indian',
+      name: 'Find Places',
       image:
-        'https://duyt4h9nfnj50.cloudfront.net/new_search_home_eats_icon/Indian_BrowseHome@3x.png',
+        'https://img.freepik.com/free-vector/colourful-travelling-landmarks-skyline_23-2148424207.jpg?t=st=1713161907~exp=1713165507~hmac=7e59b71b01b9095bbc82f892ed02f0116fc324d4ecd20df74dd64509f69552b8&w=2000',
     },
   ];
   

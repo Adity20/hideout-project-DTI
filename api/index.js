@@ -10,6 +10,8 @@ import cors from "cors";
 import path from 'path';
 import placeRouter from "./routes/places.rout.js"
 import bodyparser from 'body-parser';
+import { addtrip } from './controllers/pool.controller.js';
+import tripRouter from './routes/pool.route.js';
 
 import {upload_place} from './controllers/user_places.controller.js';
 dotenv.config();
@@ -38,6 +40,7 @@ app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
 app.use('/api/places',placeRouter);
+app.use('/api/trips',tripRouter);
 
 app.use('/images',express.static("C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads"));
 
@@ -54,9 +57,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
 })
-
+app.use(bodyparser.urlencoded({extended:true}));
+app.post('/api/addtrip',addtrip);
 app.post('/api/upload', upload.single('image'), upload_place);
 
+// app.post('/api/addtrip',addtrip);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';

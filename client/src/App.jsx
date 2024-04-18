@@ -20,7 +20,7 @@ import DestinationDetails from './pages/DestinationDetails';
 import Pool from './components/pool/Pool';
 import Ride from './components/pool/Ride';
 import CreateRide from './components/pool/CreateRide';
-import Footer from './pages/Footer';
+import Footer from './pages/Footer.jsx';
 
 export default function App() {
   return (
@@ -54,6 +54,7 @@ export default function App() {
         </Route>
       </Routes>
       {/* {!isSignUpOrSignInPage && <Footer />}  */}
+      <Footer/>
     </BrowserRouter>
 
   );

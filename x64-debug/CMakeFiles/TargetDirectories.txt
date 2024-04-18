@@ -1,0 +1,3 @@
+C:/Users/shubh kamra/source/repos/CMakeProject4/out/build/x64-debug/CMakeFiles/CMakeProject.dir
+C:/Users/shubh kamra/source/repos/CMakeProject4/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/shubh kamra/source/repos/CMakeProject4/out/build/x64-debug/CMakeFiles/rebuild_cache.dir

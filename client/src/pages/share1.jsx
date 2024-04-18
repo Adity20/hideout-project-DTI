@@ -155,9 +155,13 @@ const FormComponent = () => {
             className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="">Select Type</option>
-            <option value="Type1">Type1</option>
-            <option value="Type2">Type2</option>
-            <option value="Type3">Type3</option>
+            <option value="Chill">Chill</option>
+            <option value="Vibezz">Vibezz</option>
+            <option value="Nature">Nature</option>
+            <option value="Hidden Gem">Hidden Gem</option>
+            <option value="Famous">Famous</option>
+            <option value="Must See">Must See</option>
+
           </select>
         </div>
         <div>
