@@ -78,9 +78,9 @@ export default function Header() {
       <div className="flex items-center justify-between">
         <a className="flex items-center" href="/">
           <img src="https://i.ibb.co/jGMgp7r/seamless-ui.png" className="w-16" alt="Header Logo" />
-          <span className="block text-lg font-semibold"><Link to={"/"}>HIDEOUT</Link></span>
+          <span className="block text-lg font-semibold"><Link to={"/"}>Traverse</Link></span>
         </a>
-        <div className="hidden items-center rounded-lg border border-gray-200 px-3 py-2 lg:inline-flex">
+        {/* <div className="hidden items-center rounded-lg border border-gray-200 px-3 py-2 lg:inline-flex">
         <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"
           className="h-[18px] pr-4 text-gray-400 dark:hover:text-gray-900">
           <path strokeLinecap="round" strokeLinejoin="round"
@@ -92,10 +92,11 @@ export default function Header() {
          >
         <input type="search" placeholder="Search" className="bg-transparent focus:outline-none" />
         </form>
-      </div>
+      </div> */}
         <div>
           <div className="hidden md:flex">
             {/* <h2 className="m-4 cursor-pointer font-normal text-gray-600 hover:text-gray-900"><Link to={"/"}>Home</Link></h2> */}
+            <h2 className="m-4 cursor-pointer font-normal text-gray-600 hover:text-gray-900"><Link to={"/"}>Home</Link></h2>
             <h2 className="m-4 cursor-pointer font-normal text-gray-600 hover:text-gray-900"><Link to={"/places"}>Popular Places</Link></h2>
             <h2 className="m-4 cursor-pointer font-normal text-gray-600 hover:text-gray-900"><Link to={"/share"}>Share</Link></h2>
             <h2 className="m-4 cursor-pointer font-normal text-gray-600 hover:text-gray-900"><Link to={"/shared"}>Shared Places</Link></h2>

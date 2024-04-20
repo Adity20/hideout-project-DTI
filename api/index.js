@@ -5,11 +5,16 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
-import UserListing from './models/user.listing.js';
 import multer from 'multer';
+import cors from "cors";
 import path from 'path';
-dotenv.config();
+import placeRouter from "./routes/places.rout.js"
+import bodyparser from 'body-parser';
+import { addtrip } from './controllers/pool.controller.js';
+import tripRouter from './routes/pool.route.js';
 
+import {upload_place} from './controllers/user_places.controller.js';
+dotenv.config();
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -24,59 +29,39 @@ mongoose
 const app = express();
 
 app.use(express.json());
-
+app.use(bodyparser.urlencoded({extended:true}));
 app.use(cookieParser());
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000!');
-});
-
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests from this origin
+  credentials: true, // Allow including cookies in requests (if applicable)
+}));
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
+app.use('/api/places',placeRouter);
+app.use('/api/trips',tripRouter);
 
+app.use('/images',express.static("C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads"));
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-})
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, './uploads/temp');
+      cb(null, "C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads");
   },
-  filename: (req, file, cb) => {
-      // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-      cb(null, file.originalname);
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
 
 const upload = multer({
   storage: storage,
 })
+app.use(bodyparser.urlencoded({extended:true}));
+app.post('/api/addtrip',addtrip);
+app.post('/api/upload', upload.single('image'), upload_place);
 
-app.post('/upload', upload.fields([{ name: 'photos', maxCount: 10 }, { name: 'music', maxCount: 1 }]), (req, res) => {
-  UserListing.create({
-    location: req.body.location,
-    description: req.body.description,
-    photos: req.files.photos.map((photo) => photo.path),
-    music: req.files.music[0].path,
-  })
-    .then((listing) => {
-      res.status(201).json({
-        success: true,
-        listing,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        success: false,
-        message: err.message,
-      });
-    });
-});
-
+// app.post('/api/addtrip',addtrip);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
@@ -85,4 +70,7 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+app.listen(3000, () => {
+  console.log('Server is running on port 3000!');
 });
