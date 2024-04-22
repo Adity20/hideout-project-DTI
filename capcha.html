@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image CAPTCHA</title>
+    <link rel="stylesheet" href="capcha.css">
+</head>
+<body>
+    <div class="captcha-container">
+        <div class="card">
+            <div class="top">
+            <h2>Verify you're human</h2>
+            <p id="captchaText"></p>
+            </div>
+        <div id="captcha"></div>
+        <button onclick="validateCaptcha()">Submit</button>
+        <p id="result"></p>
+        </div>
+    </div>
+    <script src="capcha.js"></script>
+</body>
+</html>
