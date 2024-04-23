@@ -1,20 +1,40 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
+import ImageCaptcha from '../components/capcha'; // Import ImageCaptcha component
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false); // State to control visibility of CAPTCHA
+  const [captchaVerified, setCaptchaVerified] = useState(false); // State to track CAPTCHA verification
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
+
+  const handleCaptchaVerify = (success) => {
+    setCaptchaVerified(success);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!showCaptcha) {
+      // Show CAPTCHA if it's not already shown
+      setShowCaptcha(true);
+      return;
+    }
+
+    if (!captchaVerified) {
+      // Don't proceed with sign-up if CAPTCHA is not verified
+      return;
+    }
+
     try {
       setLoading(true);
       const res = await fetch('/api/auth/signup', {
@@ -39,6 +59,7 @@ export default function SignUp() {
       setError(error.message);
     }
   };
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
@@ -65,13 +86,17 @@ export default function SignUp() {
           onChange={handleChange}
         />
 
-        <button
-          disabled={loading}
-          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Loading...' : 'Sign Up'}
-        </button>
-        <OAuth/>
+        {!showCaptcha && ( // Show CAPTCHA only when it's not already shown
+          <button
+            disabled={loading}
+            className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+          >
+            {loading ? 'Loading...' : 'Sign Up'}
+          </button>
+        )}
+        {showCaptcha && <ImageCaptcha onVerify={handleCaptchaVerify} />} {/* Show CAPTCHA component */}
+        
+        <OAuth />
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>

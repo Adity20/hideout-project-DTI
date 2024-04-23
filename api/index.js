@@ -43,8 +43,7 @@ app.use('/api/places',placeRouter);
 app.use('/api/trips',tripRouter);
 
 app.use('/images',express.static("C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads"));
-
-
+app.use('/capcha',express.static("C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/images"));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null, "C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads");

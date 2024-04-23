@@ -78,7 +78,7 @@ export default function Header() {
       <div className="flex items-center justify-between">
         <a className="flex items-center" href="/">
           <img src="https://i.ibb.co/jGMgp7r/seamless-ui.png" className="w-16" alt="Header Logo" />
-          <span className="block text-lg font-semibold"><Link to={"/"}>Traverse</Link></span>
+          <span className="block text-lg font-semibold"><Link to={"/"}>Hideout</Link></span>
         </a>
         {/* <div className="hidden items-center rounded-lg border border-gray-200 px-3 py-2 lg:inline-flex">
         <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor"

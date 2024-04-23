@@ -21,6 +21,7 @@ import Pool from './components/pool/Pool';
 import Ride from './components/pool/Ride';
 import CreateRide from './components/pool/CreateRide';
 import Footer from './pages/Footer.jsx';
+import ImageCaptcha from './components/capcha.jsx';
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
         <Route exact path="/destination/:id" element={<DestinationDetails />} /> 
         <Route exact path="/shared/:id" element={<DestinationDetails />} /> 
         <Route exact path="/ride/:id" element={<Ride />} /> 
+        <Route exact path="/capcha" element={<ImageCaptcha />} /> 
 
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
