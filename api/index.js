@@ -42,11 +42,11 @@ app.use('/api/listing', listingRouter);
 app.use('/api/places',placeRouter);
 app.use('/api/trips',tripRouter);
 
-app.use('/images',express.static("C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads"));
-app.use('/capcha',express.static("C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/images"));
+app.use('/images',express.static("C:/Users/ASUS/Documents/hideout-project-DTI/api/uploads"));
+app.use('/capcha',express.static("C:/Users/ASUS/Documents/hideout-project-DTI/images"));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, "C:/Users/shubh kamra/hideout_proj_daa/hideout-project-DTI/api/uploads");
+      cb(null, "C:/Users/ASUS/Documents/hideout-project-DTI/api/uploads");
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
