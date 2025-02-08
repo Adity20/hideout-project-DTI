@@ -5,7 +5,7 @@ This repository contains the codebase for the Location Preservation project, an 
 ### Project Structure
 
 - **backend-api:** This folder contains the backend codebase, including the API endpoints, data storage, and business logic.
-- **frontend-client:** This folder contains the frontend codebase, including the user interface and interactions for accessing and exploring stories.
+- **frontend-client:** This folder contains the frontend codebase, including the user interface and interaction for accessing and exploring stories.
 
 ### Getting Started
 
